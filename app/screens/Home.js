@@ -48,7 +48,7 @@ const Home = () => {
                 />
             </View>
             <View style={styles.sliderContainer}>
-                <List title="abcd" content={popularMovies}></List>
+                <List title="Popular Movies" content={popularMovies}></List>
             </View>
         </Fragment>
     );
