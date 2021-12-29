@@ -1,18 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { SliderBox } from 'react-native-image-slider-box';
-
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 
-import { getUpcomingMovieImages } from '../services/getMovies';
+import {
+    getUpcomingMovieImages,
+    getPopularMovies,
+} from '../services/getMovies';
+import List from '../components/List';
 
 const screenDimensons = Dimensions.get('screen');
 const Home = () => {
     const [movieImages, setMovieImages] = useState('');
+    const [popularMovies, setPopularMovies] = useState('');
     const [err, setError] = useState(null);
     useEffect(() => {
         getUpcomingMovieImages()
             .then(imageList => {
+                // console.log(imageList);
                 setMovieImages(imageList);
+            })
+            .catch(err => {
+                console.log(err);
+                setError(err.message);
+                setMovieImages('');
+            });
+
+        getPopularMovies()
+            .then(movies => {
+                // console.log(movies);
+                setPopularMovies(movies);
             })
             .catch(err => {
                 console.log(err);
@@ -21,15 +37,20 @@ const Home = () => {
             });
     }, []);
     return (
-        <View style={styles.sliderContainer}>
-            <SliderBox
-                autoplay={true}
-                circleLoop={true}
-                sliderBoxHeight={screenDimensons.height / 1.5}
-                images={movieImages}
-                dotStyle={styles.slider}
-            />
-        </View>
+        <Fragment>
+            <View style={styles.sliderContainer}>
+                <SliderBox
+                    autoplay={true}
+                    circleLoop={true}
+                    sliderBoxHeight={screenDimensons.height / 1.5}
+                    images={movieImages}
+                    dotStyle={styles.sliderDots}
+                />
+            </View>
+            <View style={styles.sliderContainer}>
+                <List title="abcd" content={popularMovies}></List>
+            </View>
+        </Fragment>
     );
 };
 
@@ -40,7 +61,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 
-    slider: {
+    sliderDots: {
         height: 0,
     },
 });

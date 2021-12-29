@@ -9,3 +9,7 @@ export async function getUpcomingMovieImages() {
     });
     return toReturn;
 }
+
+export async function getPopularMovies() {
+    return await movieApi.getPopularMovies();
+}
