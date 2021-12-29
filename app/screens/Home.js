@@ -11,7 +11,7 @@ import List from '../components/List';
 const screenDimensons = Dimensions.get('screen');
 const Home = () => {
     const [movieImages, setMovieImages] = useState('');
-    const [popularMovies, setPopularMovies] = useState('');
+    const [popularMovies, setPopularMovies] = useState([]);
     const [err, setError] = useState(null);
     useEffect(() => {
         getUpcomingMovieImages()

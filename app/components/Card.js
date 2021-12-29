@@ -7,11 +7,18 @@ import {
     TouchableOpacity,
     Image,
 } from 'react-native';
+import PropTypes from 'prop-types';
 
 import * as theMovieDBConfig from '../config/TheMovieDB';
-const posterPlaceHolder = require('../../assets/images/place-holders/movie-poster.png');
 
+const posterPlaceHolder = require('../../assets/images/place-holders/movie-poster.png');
 const screenDimensons = Dimensions.get('screen');
+const propTypes = {
+    item: PropTypes.shape({
+        poster_path: PropTypes.string,
+        title: PropTypes.string,
+    }),
+};
 
 class Card extends React.PureComponent {
     render() {

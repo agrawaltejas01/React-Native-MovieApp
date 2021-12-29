@@ -1,10 +1,18 @@
 import React from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
+
 import Card from './Card';
+import PropTypes from 'prop-types';
+
+const propTypes = {
+    title: PropTypes.string,
+    content: PropTypes.array,
+};
 
 class List extends React.PureComponent {
     render() {
         const { title, content } = this.props;
+        console.log(typeof content);
         return (
             <View style={styles.list}>
                 <View>
@@ -34,4 +42,5 @@ const styles = StyleSheet.create({
     },
 });
 
+List.propTypes = propTypes;
 export default List;
