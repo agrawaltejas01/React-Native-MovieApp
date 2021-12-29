@@ -12,7 +12,6 @@ const propTypes = {
 class List extends React.PureComponent {
     render() {
         const { title, content } = this.props;
-        console.log(typeof content);
         return (
             <View style={styles.list}>
                 <View>
