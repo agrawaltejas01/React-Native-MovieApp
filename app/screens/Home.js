@@ -17,6 +17,7 @@ import {
     getDocumentryMovies,
 } from '../services/getMovies';
 import List from '../components/List';
+import Error from '../components/Error';
 
 const screenDimensons = Dimensions.get('screen');
 
@@ -38,7 +39,7 @@ const Home = () => {
     const [documentryMovies, setDocumentryMovies] = useState([]);
     const [loaded, setLoaded] = useState(false);
 
-    const [err, setError] = useState(null);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         getData()
@@ -57,6 +58,7 @@ const Home = () => {
                     setDocumentryMovies(documentryMoviesData);
 
                     setLoaded(true);
+                    // setError('Test');
                 },
             )
             .catch(err => {
@@ -68,7 +70,7 @@ const Home = () => {
 
     return (
         <Fragment>
-            {!loaded ? (
+            {loaded && !error && (
                 <ScrollView>
                     {movieImages && (
                         <View style={styles.sliderContainer}>
@@ -110,8 +112,12 @@ const Home = () => {
                         </View>
                     )}
                 </ScrollView>
-            ) : (
+            )}
+            {!loaded && !error && (
                 <ActivityIndicator size="large" color="dodgerblue" />
+            )}
+            {error && (
+                <Error error="Error in Getting Home Page Data" detail={error} />
             )}
         </Fragment>
     );
