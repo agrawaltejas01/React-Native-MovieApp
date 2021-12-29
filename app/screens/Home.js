@@ -1,6 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { SliderBox } from 'react-native-image-slider-box';
-import { StyleSheet, Text, View, Dimensions, ScrollView } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    Dimensions,
+    ScrollView,
+    ActivityIndicator,
+} from 'react-native';
 
 import {
     getUpcomingMovieImages,
@@ -29,6 +36,8 @@ const Home = () => {
     const [popularTvShows, setPopularTvShows] = useState([]);
     const [familyMovies, setFamilyMovies] = useState([]);
     const [documentryMovies, setDocumentryMovies] = useState([]);
+    const [loaded, setLoaded] = useState(false);
+
     const [err, setError] = useState(null);
 
     useEffect(() => {
@@ -46,6 +55,8 @@ const Home = () => {
                     setPopularTvShows(popularTvShowsData);
                     setFamilyMovies(familyMoviesData);
                     setDocumentryMovies(documentryMoviesData);
+
+                    setLoaded(true);
                 },
             )
             .catch(err => {
@@ -56,43 +67,53 @@ const Home = () => {
     }, []);
 
     return (
-        <ScrollView>
-            {movieImages && (
-                <View style={styles.sliderContainer}>
-                    <SliderBox
-                        autoplay={true}
-                        circleLoop={true}
-                        sliderBoxHeight={screenDimensons.height / 2}
-                        images={movieImages}
-                        dotStyle={styles.sliderDots}
-                    />
-                </View>
+        <Fragment>
+            {!loaded ? (
+                <ScrollView>
+                    {movieImages && (
+                        <View style={styles.sliderContainer}>
+                            <SliderBox
+                                autoplay={true}
+                                circleLoop={true}
+                                sliderBoxHeight={screenDimensons.height / 2}
+                                images={movieImages}
+                                dotStyle={styles.sliderDots}
+                            />
+                        </View>
+                    )}
+                    {popularMovies && (
+                        <View style={styles.sliderContainer}>
+                            <List
+                                title="Popular Movies"
+                                content={popularMovies}></List>
+                        </View>
+                    )}
+                    {popularTvShows && (
+                        <View style={styles.sliderContainer}>
+                            <List
+                                title="Popular Tv Shows"
+                                content={popularTvShows}></List>
+                        </View>
+                    )}
+                    {familyMovies && (
+                        <View style={styles.sliderContainer}>
+                            <List
+                                title="Family Movies"
+                                content={familyMovies}></List>
+                        </View>
+                    )}
+                    {documentryMovies && (
+                        <View style={styles.sliderContainer}>
+                            <List
+                                title="Documentry Movies"
+                                content={documentryMovies}></List>
+                        </View>
+                    )}
+                </ScrollView>
+            ) : (
+                <ActivityIndicator size="large" color="dodgerblue" />
             )}
-            {popularMovies && (
-                <View style={styles.sliderContainer}>
-                    <List title="Popular Movies" content={popularMovies}></List>
-                </View>
-            )}
-            {popularTvShows && (
-                <View style={styles.sliderContainer}>
-                    <List
-                        title="Popular Tv Shows"
-                        content={popularTvShows}></List>
-                </View>
-            )}
-            {familyMovies && (
-                <View style={styles.sliderContainer}>
-                    <List title="Family Movies" content={familyMovies}></List>
-                </View>
-            )}
-            {documentryMovies && (
-                <View style={styles.sliderContainer}>
-                    <List
-                        title="Documentry Movies"
-                        content={documentryMovies}></List>
-                </View>
-            )}
-        </ScrollView>
+        </Fragment>
     );
 };
 
