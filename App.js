@@ -6,10 +6,8 @@
  * @flow strict-local
  */
 
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import Home from './app/screens/Home';
-
-import getMovies from './app/services/getMovies';
 
 const App = () => {
     return <Home />;
