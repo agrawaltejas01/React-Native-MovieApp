@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 
 import Card from './Card';
@@ -9,7 +9,11 @@ const propTypes = {
     content: PropTypes.array,
 };
 
+const renderItem = ({ item }) => <Card item={item} />;
+
 class List extends React.PureComponent {
+    // memoizedValues = useMemo(() => renderItem, []);
+
     render() {
         const { title, content } = this.props;
         return (
@@ -21,7 +25,7 @@ class List extends React.PureComponent {
                     <FlatList
                         data={content}
                         horizontal={true}
-                        renderItem={({ item }) => <Card item={item} />}
+                        renderItem={renderItem}
                     />
                 </View>
             </View>

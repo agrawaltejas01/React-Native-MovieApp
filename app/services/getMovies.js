@@ -13,3 +13,15 @@ export async function getUpcomingMovieImages() {
 export async function getPopularMovies() {
     return await movieApi.getPopularMovies();
 }
+
+export async function getPopularTvShows() {
+    return await movieApi.getPopularTvShows();
+}
+
+export async function getFamilyMovies() {
+    return await movieApi.getFamilyMovies();
+}
+
+export async function getDocumentryMovies() {
+    return await movieApi.getDocumentryMovies();
+}
