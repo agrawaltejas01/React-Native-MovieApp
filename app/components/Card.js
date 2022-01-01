@@ -25,7 +25,9 @@ class Card extends React.PureComponent {
         const { item, navigation } = this.props;
 
         const goToDetails = () => {
-            navigation.navigate('Details');
+            navigation.navigate('Details', {
+                movieId: item.id,
+            });
         };
 
         return (
@@ -70,4 +72,5 @@ const styles = StyleSheet.create({
     },
 });
 
+Card.propTypes = propTypes;
 export default Card;

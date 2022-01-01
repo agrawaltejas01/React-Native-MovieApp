@@ -35,3 +35,10 @@ export async function getDocumentryMovies() {
     );
     return response.data.results;
 }
+
+export async function getMovieDetails(id) {
+    const response = await axios.get(
+        `${theMovieDb.baseUrl.api}/movie/${id}?${theMovieDb.key}`,
+    );
+    return response.data;
+}

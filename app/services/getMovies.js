@@ -25,3 +25,7 @@ export async function getFamilyMovies() {
 export async function getDocumentryMovies() {
     return await movieApi.getDocumentryMovies();
 }
+
+export async function getMovieDetails(id) {
+    return await movieApi.getMovieDetails(id);
+}
