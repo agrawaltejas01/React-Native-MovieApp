@@ -31,7 +31,7 @@ const getData = async function () {
     ]);
 };
 
-const Home = () => {
+const Home = ({ navigation }) => {
     const [movieImages, setMovieImages] = useState([]);
     const [popularMovies, setPopularMovies] = useState([]);
     const [popularTvShows, setPopularTvShows] = useState([]);
@@ -87,28 +87,32 @@ const Home = () => {
                         <View style={styles.sliderContainer}>
                             <List
                                 title="Popular Movies"
-                                content={popularMovies}></List>
+                                content={popularMovies}
+                                navigation={navigation}></List>
                         </View>
                     )}
                     {popularTvShows && (
                         <View style={styles.sliderContainer}>
                             <List
                                 title="Popular Tv Shows"
-                                content={popularTvShows}></List>
+                                content={popularTvShows}
+                                navigation={navigation}></List>
                         </View>
                     )}
                     {familyMovies && (
                         <View style={styles.sliderContainer}>
                             <List
                                 title="Family Movies"
-                                content={familyMovies}></List>
+                                content={familyMovies}
+                                navigation={navigation}></List>
                         </View>
                     )}
                     {documentryMovies && (
                         <View style={styles.sliderContainer}>
                             <List
                                 title="Documentry Movies"
-                                content={documentryMovies}></List>
+                                content={documentryMovies}
+                                navigation={navigation}></List>
                         </View>
                     )}
                 </ScrollView>

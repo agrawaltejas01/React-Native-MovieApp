@@ -9,13 +9,9 @@ const propTypes = {
     content: PropTypes.array,
 };
 
-const renderItem = ({ item }) => <Card item={item} />;
-
 class List extends React.PureComponent {
-    // memoizedValues = useMemo(() => renderItem, []);
-
     render() {
-        const { title, content } = this.props;
+        const { title, content, navigation } = this.props;
         return (
             <View style={styles.list}>
                 <View>
@@ -25,7 +21,9 @@ class List extends React.PureComponent {
                     <FlatList
                         data={content}
                         horizontal={true}
-                        renderItem={renderItem}
+                        renderItem={({ item }) => (
+                            <Card navigation={navigation} item={item} />
+                        )}
                     />
                 </View>
             </View>
