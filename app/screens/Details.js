@@ -6,7 +6,9 @@ import {
     Image,
     StyleSheet,
     Dimensions,
+    View,
 } from 'react-native';
+import StarRating from 'react-native-star-rating';
 
 import { getMovieDetails } from '../services/movieApis';
 import * as theMovieDBConfig from '../config/TheMovieDB';
@@ -48,6 +50,7 @@ const Details = ({ route, navigation }) => {
         <Fragment>
             {loaded && !error && (
                 <ScrollView>
+                    {/* Poster */}
                     <Image
                         style={styles.image}
                         source={
@@ -58,7 +61,61 @@ const Details = ({ route, navigation }) => {
                                 : posterPlaceHolder
                         }
                     />
-                    <Text>{movieDetails.original_title}</Text>
+                    <View style={styles.container}>
+                        {/* Titl */}
+                        <Text style={styles.movieTitle}>
+                            {movieDetails.original_title}
+                        </Text>
+                    </View>
+
+                    {/* Genres */}
+                    <View style={styles.container}>
+                        {movieDetails.genres && (
+                            <View style={styles.genresContainer}>
+                                {movieDetails.genres.map(genre => {
+                                    return (
+                                        <Text
+                                            key={genre.id}
+                                            style={styles.genre}>
+                                            {genre.name}
+                                        </Text>
+                                    );
+                                })}
+                            </View>
+                        )}
+                    </View>
+
+                    {/* Rating */}
+                    <View style={styles.container}>
+                        {movieDetails.vote_average && (
+                            <StarRating
+                                rating={movieDetails.vote_average / 2}
+                                disabled={true}
+                                fullStarColor={'gold'}
+                                starSize={20}
+                                maxStars={5}
+                            />
+                        )}
+                    </View>
+
+                    {/* Overview */}
+                    <View style={styles.container}>
+                        {movieDetails.overview && (
+                            <Text style={styles.overview}>
+                                {movieDetails.overview}
+                            </Text>
+                        )}
+                    </View>
+
+                    {/* Release Date */}
+                    <View style={styles.container}>
+                        {movieDetails.release_date && (
+                            <Text
+                                style={
+                                    styles.releaseDate
+                                }>{`Release Date: ${movieDetails.release_date}`}</Text>
+                        )}
+                    </View>
                 </ScrollView>
             )}
             {!loaded && !error && (
@@ -72,9 +129,42 @@ const Details = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
     image: {
         height: screenDimensons.height / 2,
-        borderRadius: 20,
+        borderRadius: 10,
+    },
+
+    movieTitle: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginTop: 10,
+        marginBottom: 10,
+    },
+
+    genresContainer: {
+        flexDirection: 'row',
+        alignContent: 'center',
+        marginBottom: 10,
+    },
+
+    genre: {
+        marginRight: 10,
+        marginLeft: 10,
+        fontWeight: 'bold',
+    },
+
+    overview: {
+        padding: 10,
+    },
+
+    releaseDate: {
+        fontWeight: 'bold',
     },
 });
 
