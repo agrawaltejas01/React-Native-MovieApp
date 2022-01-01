@@ -13,6 +13,7 @@ import StarRating from 'react-native-star-rating';
 import { getMovieDetails } from '../services/movieApis';
 import * as theMovieDBConfig from '../config/TheMovieDB';
 import Error from '../components/Error';
+import PlayButton from '../components/PlayButton';
 const posterPlaceHolder = require('../../assets/images/place-holders/movie-poster.png');
 
 const screenDimensons = Dimensions.get('screen');
@@ -62,59 +63,65 @@ const Details = ({ route, navigation }) => {
                         }
                     />
                     <View style={styles.container}>
-                        {/* Titl */}
-                        <Text style={styles.movieTitle}>
-                            {movieDetails.original_title}
-                        </Text>
-                    </View>
+                        <View style={styles.playButton}>
+                            <PlayButton />
+                        </View>
 
-                    {/* Genres */}
-                    <View style={styles.container}>
-                        {movieDetails.genres && (
-                            <View style={styles.genresContainer}>
-                                {movieDetails.genres.map(genre => {
-                                    return (
-                                        <Text
-                                            key={genre.id}
-                                            style={styles.genre}>
-                                            {genre.name}
-                                        </Text>
-                                    );
-                                })}
-                            </View>
-                        )}
-                    </View>
-
-                    {/* Rating */}
-                    <View style={styles.container}>
-                        {movieDetails.vote_average && (
-                            <StarRating
-                                rating={movieDetails.vote_average / 2}
-                                disabled={true}
-                                fullStarColor={'gold'}
-                                starSize={20}
-                                maxStars={5}
-                            />
-                        )}
-                    </View>
-
-                    {/* Overview */}
-                    <View style={styles.container}>
-                        {movieDetails.overview && (
-                            <Text style={styles.overview}>
-                                {movieDetails.overview}
+                        <View style={styles.container}>
+                            {/* Title */}
+                            <Text style={styles.movieTitle}>
+                                {movieDetails.original_title}
                             </Text>
-                        )}
-                    </View>
+                        </View>
 
-                    {/* Release Date */}
-                    <View style={styles.container}>
-                        {movieDetails.release_date && (
-                            <Text
-                                style={
-                                    styles.releaseDate
-                                }>{`Release Date: ${movieDetails.release_date}`}</Text>
-                        )}
+                        {/* Genres */}
+                        <View style={styles.container}>
+                            {movieDetails.genres && (
+                                <View style={styles.genresContainer}>
+                                    {movieDetails.genres.map(genre => {
+                                        return (
+                                            <Text
+                                                key={genre.id}
+                                                style={styles.genre}>
+                                                {genre.name}
+                                            </Text>
+                                        );
+                                    })}
+                                </View>
+                            )}
+                        </View>
+
+                        {/* Rating */}
+                        <View style={styles.container}>
+                            {movieDetails.vote_average && (
+                                <StarRating
+                                    rating={movieDetails.vote_average / 2}
+                                    disabled={true}
+                                    fullStarColor={'gold'}
+                                    starSize={20}
+                                    maxStars={5}
+                                />
+                            )}
+                        </View>
+
+                        {/* Overview */}
+                        <View style={styles.container}>
+                            {movieDetails.overview && (
+                                <Text style={styles.overview}>
+                                    {movieDetails.overview}
+                                </Text>
+                            )}
+                        </View>
+
+                        {/* Release Date */}
+                        <View style={styles.container}>
+                            {movieDetails.release_date && (
+                                <Text
+                                    style={
+                                        styles.releaseDate
+                                    }>{`Release Date: ${movieDetails.release_date}`}</Text>
+                            )}
+                        </View>
                     </View>
                 </ScrollView>
             )}
@@ -138,6 +145,12 @@ const styles = StyleSheet.create({
     image: {
         height: screenDimensons.height / 2,
         borderRadius: 10,
+    },
+
+    playButton: {
+        position: 'absolute',
+        top: -30,
+        right: 20,
     },
 
     movieTitle: {
