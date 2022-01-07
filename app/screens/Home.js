@@ -7,7 +7,11 @@ import {
     Dimensions,
     ScrollView,
     ActivityIndicator,
+    TouchableOpacity,
+    TextInput,
 } from 'react-native';
+// import TextInput from 'react-native-text-input-interactive';
+import { AwesomeTextInput } from 'react-native-awesome-text-input';
 
 import {
     getUpcomingMovieImages,
@@ -18,6 +22,7 @@ import {
 } from '../services/getMovies';
 import List from '../components/List';
 import Error from '../components/Error';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const screenDimensons = Dimensions.get('screen');
 
@@ -32,6 +37,7 @@ const getData = async function () {
 };
 
 const Home = ({ navigation }) => {
+    const [text, setText] = useState('');
     const [movieImages, setMovieImages] = useState([]);
     const [popularMovies, setPopularMovies] = useState([]);
     const [popularTvShows, setPopularTvShows] = useState([]);
@@ -72,6 +78,37 @@ const Home = ({ navigation }) => {
         <Fragment>
             {loaded && !error && (
                 <ScrollView>
+                    <View
+                    // style={styles.searchContainer}
+                    >
+                        <TextInput
+                            style={styles.searchBar}
+                            // underlineColorAndroid="transparent"
+                            placeholder="Movie Name..."
+                            keyboardType="default"
+                            onChangeText={text => setText(text)}
+                            value={text}
+                            placeholderTextColor={'black'}
+                            // customStyles={{
+                            //     container: {
+                            //         borderWidth: 1,
+                            //         borderColor: 'grey',
+                            //         borderRadius: 10,
+                            //     },
+                            //     title: {
+                            //         backgroundColor: 'white',
+                            //     },
+                            // }}
+                        />
+                    </View>
+                    {/* <Icon
+                            style={styles.searchButton}
+                            name={'search'}
+                            size={50}
+                            color={'#fff'}
+                        /> */}
+                    {/* </TextInput> */}
+
                     {movieImages && (
                         <View style={styles.sliderContainer}>
                             <SliderBox
@@ -137,6 +174,29 @@ const styles = StyleSheet.create({
 
     sliderDots: {
         height: 0,
+    },
+
+    searchContainer: {
+        // position: 'absolute',
+        // // top: 20,
+        // right: 20,
+        padding: 10,
+    },
+
+    searchButton: {
+        fontWeight: 'bold',
+        fontSize: 60,
+    },
+
+    searchBar: {
+        height: 80,
+        padding: 0,
+        lineHeight: 14,
+        color: 'white',
+        // width: 100,
+        // margin: 12,
+        // borderWidth: 1,
+        // padding: 10,
     },
 });
 
